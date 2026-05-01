@@ -1,0 +1,11 @@
+class Solution(object):
+    def sumOfTheDigitsOfHarshadNumber(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        sum_digs = sum(int(i) for i in list(str(x)))
+
+        return sum_digs if x % sum_digs == 0 else -1
+
+        
