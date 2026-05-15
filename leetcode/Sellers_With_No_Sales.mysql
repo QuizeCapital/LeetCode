@@ -1,0 +1,14 @@
+# Write your MySQL query statement below
+with tmp as (
+    select seller_id
+    from orders 
+    where sale_date > '2019-12-31' and sale_date < '2021-1-1' 
+)
+
+select seller_name
+from seller 
+-- where sale_date < '2020-01-01' or sale_date > '2020-12-31' and seller_id not in tmp
+where seller_id not in(
+    select * from tmp
+)
+order by seller_name asc
