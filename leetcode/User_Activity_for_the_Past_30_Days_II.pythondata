@@ -1,0 +1,21 @@
+import pandas as pd
+
+def user_activity(activity: pd.DataFrame) -> pd.DataFrame:
+
+    activity = activity[(activity['activity_date'] >= '2019-06-28') & 
+    (activity['activity_date'] <= '2019-07-27')]
+
+    agg_dict = {'count_sess': ('session_id', 'nunique')}
+
+    for new_col, (col, func) in agg_dict.items():
+        activity[new_col] = activity.groupby('user_id')[col].transform(func)
+
+    activity = activity.drop_duplicates('user_id')
+    mean_act = round(activity['count_sess'].mean(), 2)
+
+    mean_act = 0 if pd.isna(mean_act) else mean_act
+
+    final_df = pd.DataFrame({'average_sessions_per_user': [mean_act]})
+
+    return final_df
+    
