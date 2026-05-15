@@ -1,0 +1,10 @@
+# Write your MySQL query statement below
+with tmp as (select 
+(count(distinct session_id)) as coun
+,user_id
+from activity 
+where activity_date between '2019-06-28' and '2019-07-27'
+group by user_id)
+
+select ifnull(round(avg(coun), 2),0) as average_sessions_per_user
+from tmp
