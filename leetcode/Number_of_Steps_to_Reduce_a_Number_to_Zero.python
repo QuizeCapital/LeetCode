@@ -1,0 +1,19 @@
+class Solution(object):
+    def numberOfSteps(self, num):
+        """
+        :type num: int
+        :rtype: int
+        """
+        final_val = num 
+        count = 0
+
+        while final_val > 0:
+            if final_val % 2 == 0:
+                final_val //= 2
+            else:
+                final_val -= 1
+            count += 1
+        return count
+        
+
+        
