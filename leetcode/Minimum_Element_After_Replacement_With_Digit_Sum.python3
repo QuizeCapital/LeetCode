@@ -1,0 +1,10 @@
+class Solution:
+    def minElement(self, nums: List[int]) -> int:
+        final_list = []
+        for num in nums:
+            sum_vals = sum(int(i) for i in list(str(num)))
+            final_list.append(sum_vals)
+
+        return min(final_list)
+
+        
