@@ -1,0 +1,14 @@
+# Write your MySQL query statement below
+with tmp as (
+    select 
+    question_id as survey_log
+    ,sum(case when action = 'answer' then 1 else 0 end)  * 1/ sum(case when action = 'show' then 1 else 0 end) as answer_rate
+    from surveylog
+    group by question_id
+    -- order by answer_rate desc ,survey_log asc
+)
+
+SELECT survey_log
+FROM tmp
+ORDER BY answer_rate DESC, survey_log ASC
+LIMIT 1;
