@@ -1,0 +1,21 @@
+import pandas as pd
+
+def find_managers(employee: pd.DataFrame) -> pd.DataFrame:
+    manager = employee.copy()
+    employee = employee[employee['managerId'] != 'null']
+    employee['man_id'] = employee['managerId']
+
+
+    agg_dict = {
+        'manager_count' : ('managerId', 'count')
+    }
+    for new_col, (col, func) in agg_dict.items():
+        employee[new_col] = employee.groupby('managerId')[col].transform(func)
+    employee = employee[employee['manager_count'] >= 5]    
+    employee = employee.drop_duplicates(['managerId'])
+
+    man_id_list = employee['man_id'].to_list()
+    manager = manager[manager['id'].isin(man_id_list)]
+
+    return manager[['name']]
+    
